@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA | Identity Prime OS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=JetBrains+Mono:wght@100;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="boot-sequence">
+    <div class="core-glow"></div>
+    <h1 class="glitch-text">AURA</h1>
+    <button class="btn-cyber" style="width: 250px; margin-top: 40px;" onclick="sys.boot()">Initiate Neural Sync</button>
+</div>
+
+<section id="scr-auth" class="hidden">
+    <div class="auth-card">
+        <h2>IDENTITY REGISTRY</h2>
+        <input id="f-shop" class="input-cyber" placeholder="SHOP NAME">
+        <input id="f-mail" class="input-cyber" placeholder="ADMIN EMAIL">
+        <input id="f-pass" type="password" class="input-cyber" placeholder="MASTER PASSWORD">
+        <div class="icon-grid" id="icon-selector">
+            <div class="icon-opt selected" onclick="sys.selIcon(this, 'fa-bolt')"><i class="fa fa-bolt"></i></div>
+            <div class="icon-opt" onclick="sys.selIcon(this, 'fa-crown')"><i class="fa fa-crown"></i></div>
+            <div class="icon-opt" onclick="sys.selIcon(this, 'fa-atom')"><i class="fa fa-atom"></i></div>
+            <div class="icon-opt" onclick="sys.selIcon(this, 'fa-dragon')"><i class="fa fa-dragon"></i></div>
+        </div>
+        <button class="btn-cyber" style="margin-top: 30px;" onclick="sys.launch()">Deploy Reality</button>
+    </div>
+</section>
+
+<div id="app-wrap">
+    <aside class="sidebar">
+        <div id="shop-icon" class="brand-icon">
+            <i id="active-icon" class="fa fa-bolt"></i>
+        </div>
+        <div class="nav-node active" onclick="sys.to('home', this)"><i class="fa fa-braille"></i></div>
+        <div class="nav-node" onclick="sys.to('bill', this)"><i class="fa fa-bolt"></i></div>
+        <div class="nav-node" onclick="sys.to('inv', this)"><i class="fa fa-cube"></i></div>
+        <div class="nav-node" onclick="sys.to('cust', this)"><i class="fa fa-dna"></i></div>
+        <div class="nav-node" onclick="sys.to('debt', this)" style="color: var(--danger);"><i class="fa fa-skull"></i></div>
+        <div class="nav-node" style="margin-top: auto;" onclick="location.reload()"><i class="fa fa-power-off"></i></div>
+    </aside>
+
+    <main>
+        <header class="os-header">
+            <h2 id="disp-shop">AURA_OS</h2>
+            <div id="disp-mail" class="admin-sync-tag">ADMIN_SYNCED</div>
+        </header>
+
+        <div id="pg-home">
+            <div class="stats-grid">
+                <div class="cyber-card">REVENUE <h2>₹<span id="st-rev">0</span></h2></div>
+                <div class="cyber-card">RISK_DEBT <h2 style="color: var(--danger);">₹<span id="st-debt">0</span></h2></div>
+                <div class="cyber-card">CITIZENS <h2 id="st-cust">0</h2></div>
+            </div>
+        </div>
+
+        <div id="pg-bill" class="hidden">
+            <div class="bill-layout">
+                <div class="resource-scan">
+                    <input id="p-search" class="input-cyber" placeholder="SCAN RESOURCE INDEX..." onkeyup="sys.renderPOS()">
+                    <div id="pos-grid" class="p-grid"></div>
+                </div>
+                <div class="cyber-card checkout-panel">
+                    <h3>CHECKOUT</h3>
+                    <input id="b-name" class="input-cyber" placeholder="CITIZEN NAME">
+                    <input id="b-phone" class="input-cyber" placeholder="PHONE">
+                    <input id="b-addr" class="input-cyber" placeholder="GEO_ADDR">
+                    <div id="cart-list" class="cart-container"></div>
+                    <div class="total-row">
+                        <span>NET</span><span id="cart-total" class="cyan-text">₹0</span>
+                    </div>
+                    <button class="btn-cyber" onclick="sys.checkout('Paid')">PROCESS & PRINT</button>
+                    <button class="btn-cyber unpaid-btn" onclick="sys.checkout('Unpaid')">TRANSFER TO DEBT</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="pg-inv" class="hidden">
+            <div class="module-header">
+                <h1>RESOURCES</h1>
+                <button class="btn-cyber add-node-btn" onclick="sys.openM()">+ ADD NODE</button>
+            </div>
+            <div class="cyber-card table-wrap">
+                <table>
+                    <thead><tr><th>ASSET</th><th>BRAND</th><th>PRICE</th><th>STOCK</th><th>ACTION</th></tr></thead>
+                    <tbody id="list-p"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="pg-cust" class="hidden">
+            <h1>DNA_DIRECTORY</h1>
+            <div class="cyber-card table-wrap">
+                <table>
+                    <thead><tr><th>NAME</th><th>PHONE</th><th>ADDRESS</th><th>STATUS</th></tr></thead>
+                    <tbody id="list-c"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="pg-debt" class="hidden">
+            <h1 class="danger-text">RISK_LEDGER</h1>
+            <div class="cyber-card table-wrap">
+                <table>
+                    <thead><tr><th>DEBTOR</th><th>PHONE</th><th>AMOUNT</th><th>DATE</th><th>ACTION</th></tr></thead>
+                    <tbody id="list-d"></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</div>
+
+<div id="modal-p" class="hidden modal-overlay">
+    <div class="cyber-card modal-content">
+        <h3 id="m-title">NODE_INPUT</h3>
+        <input id="f-pname" class="input-cyber" placeholder="NAME">
+        <input id="f-pbrand" class="input-cyber" placeholder="BRAND">
+        <input id="f-pprice" type="number" class="input-cyber" placeholder="PRICE">
+        <input id="f-pstock" type="number" class="input-cyber" placeholder="STOCK">
+        <input type="hidden" id="f-pid">
+        <button class="btn-cyber" onclick="sys.saveP()">COMMIT_DATA</button>
+        <button class="abort-btn" onclick="sys.closeM()">ABORT_SYNC</button>
+    </div>
+</div>
+
+<div id="receipt-render"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
