@@ -1,0 +1,56 @@
+:root {
+    --cyan: #00f2ff;
+    --magenta: #ff00ff;
+    --deep: #020205;
+    --glass: rgba(255, 255, 255, 0.03);
+    --border: rgba(255, 255, 255, 0.1);
+    --danger: #ff0055;
+    --success: #00ffa2;
+}
+
+* { box-sizing: border-box; cursor: crosshair; transition: all 0.4s cubic-bezier(0.15, 0.83, 0.66, 1); }
+body { font-family: 'Orbitron', sans-serif; background: var(--deep); color: white; margin: 0; overflow: hidden; height: 100vh; }
+.hidden { display: none !important; opacity: 0; transform: scale(0.8); }
+
+/* --- ANIMATIONS --- */
+@keyframes aura-pulse { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 0.8; transform: scale(1.4); } }
+
+/* --- BOOT & AUTH --- */
+#boot-sequence { position: fixed; inset: 0; z-index: 100000; background: black; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.core-glow { width: 100px; height: 100px; background: var(--cyan); border-radius: 50%; filter: blur(40px); animation: aura-pulse 2s infinite; }
+#scr-auth { position: fixed; inset: 0; z-index: 90000; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at center, #0a0a12, #000); }
+.auth-card { width: 500px; padding: 50px; background: var(--glass); border: 1px solid var(--border); border-radius: 40px; backdrop-filter: blur(30px); text-align: center; }
+
+/* --- SIDEBAR --- */
+#app-wrap { display: none; height: 100vh; width: 100%; flex-direction: row; }
+.sidebar { width: 100px; background: rgba(0,0,0,0.8); border-right: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; padding: 40px 0; gap: 30px; }
+.brand-icon { width: 60px; height: 60px; background: var(--cyan); border-radius: 18px; color: black; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+.nav-node { width: 60px; height: 60px; border-radius: 18px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #444; }
+.nav-node.active { color: white; background: var(--glass); border: 1px solid var(--cyan); box-shadow: 0 0 20px rgba(0,242,255,0.3); }
+
+/* --- MAIN CONTENT --- */
+main { flex: 1; padding: 50px; overflow-y: auto; }
+.os-header { display:flex; justify-content:space-between; margin-bottom: 40px; align-items: center; }
+.admin-sync-tag { font-family: 'JetBrains Mono'; color: var(--cyan); font-size: 11px; }
+.cyber-card { background: var(--glass); border: 1px solid var(--border); border-radius: 35px; padding: 30px; backdrop-filter: blur(20px); margin-bottom: 20px; }
+
+/* --- INPUTS & BUTTONS --- */
+.input-cyber { width: 100%; padding: 15px; background: rgba(0,0,0,0.5); border: 1px solid var(--border); border-radius: 15px; color: var(--cyan); outline: none; font-family: 'JetBrains Mono'; margin-bottom: 12px; text-transform: uppercase; font-size: 12px; }
+.btn-cyber { width: 100%; padding: 18px; border-radius: 15px; border: none; background: linear-gradient(90deg, var(--cyan), var(--magenta)); color: white; font-weight: 900; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; }
+.unpaid-btn { background: var(--danger); margin-top: 10px; }
+.abort-btn { width: 100%; border: none; background: none; color: #666; margin-top: 15px; cursor: pointer; }
+
+/* --- BILLING & TABLES --- */
+.bill-layout { display: flex; gap: 30px; }
+.resource-scan { flex: 2; }
+.checkout-panel { width: 400px; height: fit-content; }
+.p-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
+.p-node { background: var(--glass); border: 1px solid var(--border); border-radius: 20px; padding: 20px; text-align: center; cursor: pointer; }
+.total-row { display: flex; justify-content: space-between; font-size: 24px; font-weight: 900; margin-bottom: 20px; }
+table { width: 100%; border-collapse: collapse; font-family: 'JetBrains Mono'; }
+th { text-align: left; padding: 15px; color: var(--cyan); border-bottom: 1px solid var(--border); }
+td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.02); }
+
+/* --- PRINT --- */
+#receipt-render { position: fixed; left: -9999px; top: 0; width: 300px; padding: 20px; color: #000; background: #fff; font-family: 'JetBrains Mono', monospace; font-size: 12px; border: 1px solid #000; }
+@media print { body * { visibility: hidden; } #receipt-render, #receipt-render * { visibility: visible; } #receipt-render { position: absolute; left: 0; top: 0; width: 100%; height: auto; } }
